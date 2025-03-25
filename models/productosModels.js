@@ -7,11 +7,11 @@ class Producto {
     }
 
     static async create(data) {
-        const { existencia, nombre_producto, precio_venta, proveedorid_proveedor } = data;
+        const { existencia, nombre_producto, precio_venta, ingrediente_activo } = data;
         const result = await pool.query(
-            `INSERT INTO productos (existencia, nombre_producto, precio_venta, proveedorid_proveedor) 
+            `INSERT INTO productos (existencia, nombre_producto, precio_venta, ingrediente_activo) 
              VALUES ($1, $2, $3, $4) RETURNING *`,
-            [existencia, nombre_producto, precio_venta, proveedorid_proveedor]
+            [existencia, nombre_producto, precio_venta, ingrediente_activo]
         );
         return result.rows[0];
     }
@@ -22,12 +22,12 @@ class Producto {
     }
 
     static async update(id, data) {
-        const { existencia, nombre_producto, precio_venta, proveedorid_proveedor } = data;
+        const { existencia, nombre_producto, precio_venta, ingrediente_activo } = data;
         const result = await pool.query(
             `UPDATE productos 
-            SET existencia = $1, nombre_producto = $2, precio_venta = $3, proveedorid_proveedor = $4 
-             WHERE id_producto = $5 RETURNING *`,
-            [existencia, nombre_producto, precio_venta, proveedorid_proveedor, id]
+            SET existencia = $1, nombre_producto = $2, precio_venta = $3, ingrediente_activo = $4 
+            WHERE id_producto = $5 RETURNING *`,
+            [existencia, nombre_producto, precio_venta, ingrediente_activo, id]
         );
         return result.rows[0];
     }
@@ -39,3 +39,4 @@ class Producto {
 }
 
 module.exports = Producto;
+

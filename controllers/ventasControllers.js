@@ -13,9 +13,10 @@ class VentaController {
 
     static async createVenta(req, res) {
         try {
-            const { fecha, subtotal, total, usuarioid_usuario, clienteid_cliente } = req.body;
-            
-            if (!fecha || !subtotal || !total || !usuarioid_usuario || !clienteid_cliente) {
+            const { fecha, subtotal, total, usuario_id_cliente, clientes_id_cliente } = req.body;
+
+            // Validamos que todos los campos necesarios estén presentes
+            if (!fecha || !subtotal || !total || !usuario_id_cliente || !clientes_id_cliente) {
                 return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
             }
 
@@ -40,9 +41,10 @@ class VentaController {
 
     static async updateVenta(req, res) {
         try {
-            const { fecha, subtotal, total, usuarioid_usuario, clienteid_cliente } = req.body;
+            const { fecha, subtotal, total, usuario_id_cliente, clientes_id_cliente } = req.body;
 
-            if (!fecha || !subtotal || !total || !usuarioid_usuario || !clienteid_cliente) {
+            // Validamos que todos los campos necesarios estén presentes
+            if (!fecha || !subtotal || !total || !usuario_id_cliente || !clientes_id_cliente) {
                 return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
             }
 

@@ -13,7 +13,14 @@ class ProductoController {
 
     static async createProducto(req, res) {
         try {
-            const producto = await Producto.create(req.body);
+            const { existencia, nombre_producto, precio_venta, ingrediente_activo } = req.body;
+
+            // Validamos que todos los campos necesarios estén presentes
+            if (!existencia || !nombre_producto || !precio_venta || !ingrediente_activo) {
+                return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
+            }
+
+            const producto = await Producto.create({ existencia, nombre_producto, precio_venta, ingrediente_activo });
             res.status(201).json(producto);
         } catch (error) {
             res.status(500).json({ mensaje: error.message });
@@ -34,7 +41,14 @@ class ProductoController {
 
     static async updateProducto(req, res) {
         try {
-            const producto = await Producto.update(req.params.id, req.body);
+            const { existencia, nombre_producto, precio_venta, ingrediente_activo } = req.body;
+
+            // Validamos que todos los campos necesarios estén presentes
+            if (!existencia || !nombre_producto || !precio_venta || !ingrediente_activo) {
+                return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
+            }
+
+            const producto = await Producto.update(req.params.id, { existencia, nombre_producto, precio_venta, ingrediente_activo });
             if (!producto) {
                 return res.status(404).json({ mensaje: "Producto no encontrado" });
             }

@@ -12,13 +12,14 @@ class ProveedorController {
 
     static async createProveedor(req, res) {
         try {
-            const { razon_social, domicilio, rfc, telefono1, email } = req.body;
-            
-            if (!razon_social || !domicilio || !rfc || !telefono1 || !email) {
+            const { razon_social, domicilio, telefono, email } = req.body;
+
+            // Verificamos que todos los campos necesarios estén presentes
+            if (!razon_social || !domicilio || !telefono || !email) {
                 return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
             }
 
-            const proveedor = await Proveedor.create(req.body);
+            const proveedor = await Proveedor.create({ razon_social, domicilio, telefono, email });
             res.status(201).json(proveedor);
         } catch (error) {
             res.status(500).json({ mensaje: error.message });
@@ -39,13 +40,14 @@ class ProveedorController {
 
     static async updateProveedor(req, res) {
         try {
-            const { razon_social, domicilio, rfc, telefono1, email } = req.body;
+            const { razon_social, domicilio, telefono, email } = req.body;
 
-            if (!razon_social || !domicilio || !rfc || !telefono1 || !email) {
+            // Verificamos que todos los campos necesarios estén presentes
+            if (!razon_social || !domicilio || !telefono || !email) {
                 return res.status(400).json({ mensaje: "Todos los campos son obligatorios" });
             }
 
-            const proveedor = await Proveedor.update(req.params.id, req.body);
+            const proveedor = await Proveedor.update(req.params.id, { razon_social, domicilio, telefono, email });
             if (!proveedor) {
                 return res.status(404).json({ mensaje: "Proveedor no encontrado" });
             }
@@ -69,4 +71,3 @@ class ProveedorController {
 }
 
 module.exports = ProveedorController;
-

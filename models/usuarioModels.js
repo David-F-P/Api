@@ -7,11 +7,11 @@ class Usuario {
     }
 
     static async create(data) {
-        const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio } = data;
+        const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol } = data;
         const result = await pool.query(
-            `INSERT INTO usuario (usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio) 
-             VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-            [usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio]
+            `INSERT INTO usuario (usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol) 
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *`,
+            [usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol]
         );
         return result.rows[0];
     }
@@ -22,13 +22,13 @@ class Usuario {
     }
 
     static async update(id, data) {
-        const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio } = data;
+        const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol } = data;
         const result = await pool.query(
             `UPDATE usuario 
             SET usuario = $1, contrasena = $2, nombre = $3, apellido_paterno = $4, apellido_materno = $5, 
-                email = $6, domicilio = $7
-             WHERE id_usuario = $8 RETURNING *`,
-            [usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, id]
+                email = $6, domicilio = $7, rol = $8
+             WHERE id_usuario = $9 RETURNING *`,
+            [usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol, id]
         );
         return result.rows[0];
     }

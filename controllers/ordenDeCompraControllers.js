@@ -13,8 +13,8 @@ class OrdenDeCompraController {
 
     static async createOrden(req, res) {
         try {
-            const { fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor } = req.body;
-            const orden = await OrdenDeCompra.create({ fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor });
+            const { fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor, usuario_id_usuario } = req.body;  // Actualizadas las columnas
+            const orden = await OrdenDeCompra.create({ fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor, usuario_id_usuario }); // Ajustado a nuevas columnas
             res.status(201).json(orden);
         } catch (error) {
             res.status(500).json({ mensaje: error.message });
@@ -35,8 +35,8 @@ class OrdenDeCompraController {
 
     static async updateOrden(req, res) {
         try {
-            const { fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor } = req.body;
-            const orden = await OrdenDeCompra.update(req.params.id, { fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor });
+            const { fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor, usuario_id_usuario } = req.body;  // Actualizadas las columnas
+            const orden = await OrdenDeCompra.update(req.params.id, { fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor, usuario_id_usuario }); // Ajustado a nuevas columnas
             if (!orden) {
                 return res.status(404).json({ mensaje: "Orden no encontrada" });
             }
@@ -61,4 +61,3 @@ class OrdenDeCompraController {
 }
 
 module.exports = OrdenDeCompraController;
-

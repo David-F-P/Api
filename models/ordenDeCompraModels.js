@@ -7,11 +7,11 @@ class OrdenDeCompra {
     }
 
     static async create(data) {
-        const { fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor } = data;
+        const { fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor } = data;
         const result = await pool.query(
-            `INSERT INTO orden_de_compra (fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor) 
-             VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-            [fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor]
+            `INSERT INTO orden_de_compra (fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor) 
+             VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+            [fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor]
         );
         return result.rows[0];
     }
@@ -22,12 +22,12 @@ class OrdenDeCompra {
     }
 
     static async update(id, data) {
-        const { fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor } = data;
+        const { fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor } = data;
         const result = await pool.query(
             `UPDATE orden_de_compra 
-            SET fecha_creacion = $1, subtotal = $2, total = $3, estado_orden = $4, usuarioid_usuario = $5, proveedorid_proveedor = $6 
-             WHERE id_orden = $7 RETURNING *`,
-            [fecha_creacion, subtotal, total, estado_orden, usuarioid_usuario, proveedorid_proveedor, id]
+            SET fecha_creacion = $1, subtotal = $2, total = $3, estado_orden = $4, proveedor_id_proveedor = $5 
+            WHERE id_orden = $6 RETURNING *`,
+            [fecha_creacion, subtotal, total, estado_orden, proveedor_id_proveedor, id]
         );
         return result.rows[0];
     }
@@ -39,4 +39,3 @@ class OrdenDeCompra {
 }
 
 module.exports = OrdenDeCompra;
-

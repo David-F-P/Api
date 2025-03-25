@@ -13,13 +13,14 @@ class UsuarioController {
 
     static async createUsuario(req, res) {
         try {
-            const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio } = req.body;
+            const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol } = req.body;
 
-            if (!usuario || !contrasena || !nombre || !apellido_paterno || !email || !domicilio) {
+            // Verificamos que todos los campos necesarios estén presentes
+            if (!usuario || !contrasena || !nombre || !apellido_paterno || !email || !domicilio || !rol) {
                 return res.status(400).json({ mensaje: "Todos los campos obligatorios deben ser proporcionados" });
             }
 
-            const nuevoUsuario = await Usuario.create(req.body);
+            const nuevoUsuario = await Usuario.create({ usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol });
             res.status(201).json(nuevoUsuario);
         } catch (error) {
             res.status(500).json({ mensaje: error.message });
@@ -40,13 +41,14 @@ class UsuarioController {
 
     static async updateUsuario(req, res) {
         try {
-            const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio } = req.body;
+            const { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol } = req.body;
 
-            if (!usuario || !contrasena || !nombre || !apellido_paterno || !email || !domicilio) {
+            // Verificamos que todos los campos necesarios estén presentes
+            if (!usuario || !contrasena || !nombre || !apellido_paterno || !email || !domicilio || !rol) {
                 return res.status(400).json({ mensaje: "Todos los campos obligatorios deben ser proporcionados" });
             }
 
-            const usuarioActualizado = await Usuario.update(req.params.id, req.body);
+            const usuarioActualizado = await Usuario.update(req.params.id, { usuario, contrasena, nombre, apellido_paterno, apellido_materno, email, domicilio, rol });
             if (!usuarioActualizado) {
                 return res.status(404).json({ mensaje: "Usuario no encontrado" });
             }

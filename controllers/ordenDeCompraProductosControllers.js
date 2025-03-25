@@ -13,7 +13,8 @@ class OrdenDeCompraProductoController {
 
     static async create(req, res) {
         try {
-            const nuevaOrden = await OrdenDeCompraProducto.create(req.body);
+            const { orden_id_orden, producto_id_producto, cantidad, precio_unitario, subtotal_producto } = req.body; // Actualización de las columnas
+            const nuevaOrden = await OrdenDeCompraProducto.create({ orden_id_orden, producto_id_producto, cantidad, precio_unitario, subtotal_producto }); // Ajuste a las nuevas columnas
             res.status(201).json(nuevaOrden);
         } catch (error) {
             res.status(500).json({ mensaje: error.message });
@@ -36,7 +37,8 @@ class OrdenDeCompraProductoController {
     static async update(req, res) {
         try {
             const { ordenId, productoId } = req.params;
-            const ordenActualizada = await OrdenDeCompraProducto.update(ordenId, productoId, req.body);
+            const { cantidad, precio_unitario, subtotal_producto } = req.body; // Asegurar que los datos sean correctos
+            const ordenActualizada = await OrdenDeCompraProducto.update(ordenId, productoId, { cantidad, precio_unitario, subtotal_producto });
             if (!ordenActualizada) {
                 return res.status(404).json({ mensaje: "Orden de compra producto no encontrada" });
             }

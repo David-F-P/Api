@@ -7,6 +7,8 @@ const OrdenDeCompraProductosRoutes = require('./routes/ordenDeCompraProductosRou
 const ProductosRoutes = require('./routes/productosRoutes');
 const VentasRoutes = require('./routes/ventasRoutes');
 const VentasProductosRoutes = require('./routes/ventasProductosRoutes');
+const ProveedorProductoRoutes = require('./routes/proveedorProductosRoutes');
+
 
 require('dotenv').config();
 
@@ -22,6 +24,8 @@ app.use('/api', OrdenDeCompraProductosRoutes);
 app.use('/api', ProductosRoutes);
 app.use('/api', VentasRoutes);
 app.use('/api', VentasProductosRoutes);
+app.use('/api', ProveedorProductoRoutes);
+
 
 const PORT = process.env.PORT || 4000;
 
