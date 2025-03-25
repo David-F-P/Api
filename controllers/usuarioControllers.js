@@ -69,6 +69,33 @@ class UsuarioController {
             res.status(500).json({ mensaje: error.message });
         }
     }
+
+    // nuevo metodo para el login
+    static async loginUsuario(req, res) {
+        try {
+            const { email, contrasena } = req.body;
+    
+            if (!email || !contrasena) {
+                return res.status(400).json({ mensaje: "Email y contraseña son requeridos" });
+            }
+    
+            // Buscar usuario por email
+            const usuario = await Usuario.findByEmail(email);
+            if (!usuario) {
+                return res.status(404).json({ mensaje: "Usuario no encontrado" });
+            }
+    
+            // Verificar la contraseña
+            if (usuario.contrasena !== contrasena) {
+                return res.status(401).json({ mensaje: "Contraseña incorrecta" });
+            }
+    
+            // Responder con éxito, puedes agregar un token de sesión si usas JWT
+            res.json({ mensaje: "Inicio de sesión exitoso", usuario });
+        } catch (error) {
+            res.status(500).json({ mensaje: error.message });
+        }
+    }
 }
 
 module.exports = UsuarioController;
