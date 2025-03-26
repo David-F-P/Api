@@ -37,6 +37,11 @@ class Usuario {
         const result = await pool.query('DELETE FROM usuario WHERE id_usuario = $1', [id]);
         return result.rowCount;
     }
+    // Definición de la función findByEmail nuevo metodo de login
+    static async findByEmail(email) {
+        const result = await pool.query('SELECT email, contrasena FROM usuario WHERE email = $1', [email]);
+        return result.rows[0]; // Devuelve el usuario con el correo electrónico y contraseña
+    }
 }
 
 module.exports = Usuario;
