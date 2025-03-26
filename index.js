@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors'); // Importa cors
 const ClienteRoutes = require('./routes/clienteRoutes');
 const ProveedorRoutes = require('./routes/proveedorRoutes');
 const UsuarioRoutes = require('./routes/usuarioRoutes');
@@ -13,6 +14,11 @@ const ProveedorProductoRoutes = require('./routes/proveedorProductosRoutes');
 require('dotenv').config();
 
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:4200' //ruta de angular
+  }));
+
 app.use(express.json());
 
 // Configuración de rutas
