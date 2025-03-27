@@ -9,14 +9,14 @@ const ProductosRoutes = require('./routes/productosRoutes');
 const VentasRoutes = require('./routes/ventasRoutes');
 const VentasProductosRoutes = require('./routes/ventasProductosRoutes');
 const ProveedorProductoRoutes = require('./routes/proveedorProductosRoutes');
-
+const authRoutes = require('./routes/authRoutes');
 
 require('dotenv').config();
 
 const app = express();
 
 app.use(cors({
-    origin: 'http://localhost:4200' //ruta de angular
+    
   }));
 
 app.use(express.json());
@@ -31,6 +31,7 @@ app.use('/api', ProductosRoutes);
 app.use('/api', VentasRoutes);
 app.use('/api', VentasProductosRoutes);
 app.use('/api', ProveedorProductoRoutes);
+app.use('/api/auth', authRoutes);
 
 
 const PORT = process.env.PORT || 4000;
