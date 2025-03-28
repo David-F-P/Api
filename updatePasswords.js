@@ -14,7 +14,7 @@ async function updatePasswords() {
                 continue;
             }
 
-            const hashedPassword = await bcrypt.hash(usuario.contrasena, 60);
+            const hashedPassword = await bcrypt.hash(usuario.contrasena, 100);
 
             await pool.query('UPDATE usuario SET contrasena = $1 WHERE id_usuario = $2', [hashedPassword, usuario.id_usuario]);
 
