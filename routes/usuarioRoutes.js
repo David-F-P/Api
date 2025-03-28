@@ -1,13 +1,46 @@
 const express = require('express');
 const UsuarioController = require('../controllers/usuarioControllers');
+const authMiddleware = require('../middleware/authMiddleware');
+const verifyRole = require('../middleware/verifyRole');
 
 const router = express.Router();
 
-router.get('/usuarios', UsuarioController.getAllUsuarios);
-router.post('/usuarios', UsuarioController.createUsuario);
-router.get('/usuarios/:id', UsuarioController.getUsuarioById);
-router.put('/usuarios/:id', UsuarioController.updateUsuario);
-router.delete('/usuarios/:id', UsuarioController.deleteUsuario);
-router.post('/login', UsuarioController.loginUsuario); //ruta de login
+// Ver todos los usuarios - solo admin
+router.get('/usuarios',
+  authMiddleware,
+  verifyRole(['admin']),
+  UsuarioController.getAllUsuarios
+);
+
+// Crear usuario - solo admin
+router.post('/usuarios',
+  authMiddleware,
+  verifyRole(['admin']),
+  UsuarioController.createUsuario
+);
+
+// Ver usuario por ID - solo admin
+router.get('/usuarios/:id',
+  authMiddleware,
+  verifyRole(['admin']),
+  UsuarioController.getUsuarioById
+);
+
+// Actualizar usuario - solo admin
+router.put('/usuarios/:id',
+  authMiddleware,
+  verifyRole(['admin']),
+  UsuarioController.updateUsuario
+);
+
+// Eliminar usuario - solo admin
+router.delete('/usuarios/:id',
+  authMiddleware,
+  verifyRole(['admin']),
+  UsuarioController.deleteUsuario
+);
+
+// Login - ruta pública
+router.post('/login', UsuarioController.loginUsuario);
 
 module.exports = router;

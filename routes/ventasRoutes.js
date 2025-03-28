@@ -1,12 +1,43 @@
 const express = require('express');
 const VentaController = require('../controllers/ventasControllers');
+const authMiddleware = require('../middleware/authMiddleware');
+const verifyRole = require('../middleware/verifyRole');
 
 const router = express.Router();
 
-router.get('/ventas', VentaController.getAllVentas);
-router.post('/ventas', VentaController.createVenta);
-router.get('/ventas/:id', VentaController.getVentaById);
-router.put('/ventas/:id', VentaController.updateVenta);
-router.delete('/ventas/:id', VentaController.deleteVenta);
+// Ver todas las ventas - admin y usuario
+router.get('/ventas',
+  authMiddleware,
+  verifyRole(['admin', 'usuario']),
+  VentaController.getAllVentas
+);
+
+// Crear venta - admin y usuario
+router.post('/ventas',
+  authMiddleware,
+  verifyRole(['admin', 'usuario']),
+  VentaController.createVenta
+);
+
+// Ver venta por ID - admin y usuario
+router.get('/ventas/:id',
+  authMiddleware,
+  verifyRole(['admin', 'usuario']),
+  VentaController.getVentaById
+);
+
+// Actualizar venta - solo admin
+router.put('/ventas/:id',
+  authMiddleware,
+  verifyRole(['admin']),
+  VentaController.updateVenta
+);
+
+// Eliminar venta - solo admin
+router.delete('/ventas/:id',
+  authMiddleware,
+  verifyRole(['admin']),
+  VentaController.deleteVenta
+);
 
 module.exports = router;
