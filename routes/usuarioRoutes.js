@@ -6,35 +6,35 @@ const verifyRole = require('../middleware/verifyRole');
 const router = express.Router();
 
 // Ver todos los usuarios - solo admin
-router.get('/usuarios',
+router.get('/',
   authMiddleware,
   verifyRole(['admin']),
   UsuarioController.getAllUsuarios
 );
 
 // Crear usuario - solo admin
-router.post('/usuarios',
+router.post('/',
   authMiddleware,
   verifyRole(['admin']),
   UsuarioController.createUsuario
 );
 
 // Ver usuario por ID - solo admin
-router.get('/usuarios/:id',
+router.get('/:id',
   authMiddleware,
   verifyRole(['admin']),
   UsuarioController.getUsuarioById
 );
 
 // Actualizar usuario - solo admin
-router.put('/usuarios/:id',
+router.put('/:id',
   authMiddleware,
   verifyRole(['admin']),
   UsuarioController.updateUsuario
 );
 
 // Eliminar usuario - solo admin
-router.delete('/usuarios/:id',
+router.delete('/:id',
   authMiddleware,
   verifyRole(['admin']),
   UsuarioController.deleteUsuario

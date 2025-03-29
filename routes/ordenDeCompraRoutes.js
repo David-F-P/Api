@@ -6,35 +6,35 @@ const verifyRole = require('../middleware/verifyRole');
 const router = express.Router();
 
 // Ver todas las órdenes - admin y usuario
-router.get('/ordenes',
+router.get('/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   OrdenDeCompraController.getAllOrdenes
 );
 
 // Crear orden - admin y usuario
-router.post('/ordenes',
+router.post('/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   OrdenDeCompraController.createOrden
 );
 
 // Ver orden por ID - admin y usuario
-router.get('/ordenes/:id',
+router.get('/:id',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   OrdenDeCompraController.getOrdenById
 );
 
 // Actualizar orden - solo admin
-router.put('/ordenes/:id',
+router.put('/:id',
   authMiddleware,
   verifyRole(['admin']),
   OrdenDeCompraController.updateOrden
 );
 
 // Eliminar orden - solo admin
-router.delete('/ordenes/:id',
+router.delete('/:id',
   authMiddleware,
   verifyRole(['admin']),
   OrdenDeCompraController.deleteOrden

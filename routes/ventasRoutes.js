@@ -6,35 +6,35 @@ const verifyRole = require('../middleware/verifyRole');
 const router = express.Router();
 
 // Ver todas las ventas - admin y usuario
-router.get('/ventas',
+router.get('/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   VentaController.getAllVentas
 );
 
 // Crear venta - admin y usuario
-router.post('/ventas',
+router.post('/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   VentaController.createVenta
 );
 
 // Ver venta por ID - admin y usuario
-router.get('/ventas/:id',
+router.get('/:id',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   VentaController.getVentaById
 );
 
 // Actualizar venta - solo admin
-router.put('/ventas/:id',
+router.put('/:id',
   authMiddleware,
   verifyRole(['admin']),
   VentaController.updateVenta
 );
 
 // Eliminar venta - solo admin
-router.delete('/ventas/:id',
+router.delete('/:id',
   authMiddleware,
   verifyRole(['admin']),
   VentaController.deleteVenta

@@ -6,35 +6,35 @@ const verifyRole = require('../middleware/verifyRole');
 const router = express.Router();
 
 // Ver todos los productos - admin y usuario
-router.get('/productos',
+router.get('/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   ProductoController.getAllProductos
 );
 
 // Crear producto - admin y usuario
-router.post('/productos',
+router.post('/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   ProductoController.createProducto
 );
 
 // Ver producto por ID - admin y usuario
-router.get('/productos/:id',
+router.get('/:id',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   ProductoController.getProductoById
 );
 
 // Actualizar producto - solo admin
-router.put('/productos/:id',
+router.put('/:id',
   authMiddleware,
   verifyRole(['admin']),
   ProductoController.updateProducto
 );
 
 // Eliminar producto - solo admin
-router.delete('/productos/:id',
+router.delete('/:id',
   authMiddleware,
   verifyRole(['admin']),
   ProductoController.deleteProducto

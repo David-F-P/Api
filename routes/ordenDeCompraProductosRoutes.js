@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Ver todos los registros - admin y usuario
 router.get(
-  '/orden-de-compra-productos',
+  '/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   OrdenDeCompraProductoController.getAll
@@ -15,7 +15,7 @@ router.get(
 
 // Crear registro - admin y usuario
 router.post(
-  '/orden-de-compra-productos',
+  '/',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   OrdenDeCompraProductoController.create
@@ -23,7 +23,7 @@ router.post(
 
 // Obtener registro por ID - admin y usuario
 router.get(
-  '/orden-de-compra-productos/:ordenId/:productoId',
+  '/:ordenId/:productoId',
   authMiddleware,
   verifyRole(['admin', 'usuario']),
   OrdenDeCompraProductoController.getById
@@ -31,7 +31,7 @@ router.get(
 
 // Actualizar registro - solo admin
 router.put(
-  '/orden-de-compra-productos/:ordenId/:productoId',
+  '/:ordenId/:productoId',
   authMiddleware,
   verifyRole(['admin']),
   OrdenDeCompraProductoController.update
@@ -39,7 +39,7 @@ router.put(
 
 // Eliminar registro - solo admin
 router.delete(
-  '/orden-de-compra-productos/:ordenId/:productoId',
+  '/:ordenId/:productoId',
   authMiddleware,
   verifyRole(['admin']),
   OrdenDeCompraProductoController.delete
